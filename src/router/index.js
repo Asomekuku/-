@@ -1,22 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// 引入路由数组
+import route from './router'
+const Login =()=>import('@/views/Login.vue')
 
 Vue.use(VueRouter)
+//循环路由数组
+let arr=[]
+
+route.map(ele=>{
+     arr.push({path:ele.path, component:ele.component})
+}) 
+
+
+
 
 const routes = [
+  ...arr,
+
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path:'/login',
+    component:Login
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path:'/*',
+    redirect:'/login'
   }
 ]
 
